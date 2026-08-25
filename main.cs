@@ -12,16 +12,12 @@ class Program
   }
 }
 
-struct Word
-{
-    public string text;
-}
-
 struct Player
 {
   private string username;
   private int hp;
   private int points;
+  private int currentLevel;
 
   public string getUsername()
   {
@@ -51,5 +47,15 @@ struct Player
   public void setPoints(int score)
   {
     points = score;
+  }
+
+  public int getCurrentLevel()
+  {
+    return currentLevel;
+  }
+
+  public void setCurrentLevel(int level)
+  {
+    currentLevel = level;
   }
 }

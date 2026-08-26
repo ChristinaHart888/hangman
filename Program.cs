@@ -7,6 +7,8 @@ namespace HangmanGame
     public static void Main(string[] args)
     {
       // Expository Dialogue
+
+      //Testing for ending screen
       Player player = new Player();
       player.setusername("Player1");
       player.setHp(0);

@@ -1,0 +1,77 @@
+using System;
+using System.Text;
+
+static void GameplayLoop(ref Player player, Random random)
+{
+    const int PointsPerWord = 100;
+    const int ScoreIncrementPerLevel = 500;
+
+    bool playing = true;
+
+    while (playing)
+    {
+        string word = Wordbank.GetRandomWord(random);
+        string scrambled = ScrambleWord(word, random);
+
+        Console.WriteLine($"\nLevel {player.getCurrentLevel()} | Score: {player.getPoints()}");
+        Console.WriteLine($"Unscramble this word: {scrambled}");
+        Console.Write("Your guess (or type 'quit' to stop): ");
+        string? guess = Console.ReadLine();
+
+        if (guess != null && guess.Trim().Equals("quit", StringComparison.OrdinalIgnoreCase))
+        {
+            playing = false;
+            continue;
+        }
+
+        bool isCorrect = guess != null &&
+            guess.Trim().Equals(word, StringComparison.OrdinalIgnoreCase);
+
+        if (isCorrect)
+        {
+            player.setPoints(player.getPoints() + PointsPerWord);
+            Console.WriteLine($"Correct! +{PointsPerWord} points.");
+
+            // Level advancement: fixed 500-point increments per level.
+            // Loop handles the (rare) case of jumping more than one level at once.
+            int threshold = player.getCurrentLevel() * ScoreIncrementPerLevel;
+            while (player.getPoints() >= threshold)
+            {
+                player.setCurrentLevel(player.getCurrentLevel() + 1);
+                Console.WriteLine($"Level up! You're now level {player.getCurrentLevel()}.");
+                threshold = player.getCurrentLevel() * ScoreIncrementPerLevel;
+            }
+        }
+        else
+        {
+            Console.WriteLine($"Not quite. The word was: {word}");
+        }
+    }
+}
+
+// Fisher-Yates shuffle; re-rolls if the scramble happens to match the original word.
+static string ScrambleWord(string word, Random random)
+{
+    char[] letters = word.ToCharArray();
+    string scrambled;
+
+    do
+    {
+        for (int i = letters.Length - 1; i > 0; i--)
+        {
+            int j = random.Next(i + 1);
+            (letters[i], letters[j]) = (letters[j], letters[i]);
+        }
+        scrambled = new string(letters);
+    }
+    while (scrambled.Equals(word, StringComparison.OrdinalIgnoreCase) && HasDistinctLetters(word));
+
+    return scrambled;
+}
+
+static bool HasDistinctLetters(string word)
+{
+    foreach (char c in word)
+        if (c != word[0]) return true;
+    return false;
+}

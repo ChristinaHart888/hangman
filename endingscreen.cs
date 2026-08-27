@@ -11,14 +11,18 @@ namespace HangmanGame
 
       if (player.getHp() > 0)
       {
+        Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine("VICTORY!");
+        Console.ResetColor();
         Console.WriteLine("===============================");
         Console.WriteLine($"Congratulations, {player.getUsername()}!");
         Console.WriteLine($"You have cleared all {player.getCurrentLevel()} levels.");
       }
       else
       {
+        Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("GAME OVER");
+        Console.ResetColor();
         Console.WriteLine("===============================");
         Console.WriteLine($"Better luck next time, {player.getUsername()}.");
         Console.WriteLine($"You reached level {player.getCurrentLevel()}.");

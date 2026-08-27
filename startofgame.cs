@@ -8,7 +8,9 @@ namespace HangmanGame
     {
       // Random story / expository I made up
       Console.WriteLine("================================");
+      Console.ForegroundColor = ConsoleColor.Cyan;
       Console.WriteLine("HANGMAN");
+      Console.ResetColor();
       Console.WriteLine("================================");
       Console.WriteLine("You have been captured by Satan.");
       Console.WriteLine("Guess the words correctly to stay alive.");

@@ -9,11 +9,10 @@ namespace HangmanGame
       // Expository Dialogue
 
       //Testing for ending screen
-      Player player = new Player();
-      player.setusername("Player1");
-      player.setHp(0);
-      player.setPoints(150);
-      player.setCurrentLevel(10);
+      Player player = GameStart.StartofGame();
+
+      GameLoop.Run(ref player);
+
 
       // Player Creation
 

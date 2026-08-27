@@ -6,21 +6,14 @@ namespace HangmanGame
   {
     public static void Main(string[] args)
     {
-      // Expository Dialogue
-
-      //Testing for ending screen
+      // Expository Dialogue + Player Creation
       Player player = GameStart.StartofGame();
 
+      // Gameplay Loop
       GameLoop.Run(ref player);
 
-
-      // Player Creation
-
-      // Gameplay Loop
-
-      GameEnd.EndingScreen(player);
-
       // Ending Screen
+      GameEnd.EndingScreen(player);
     }
   }
 
